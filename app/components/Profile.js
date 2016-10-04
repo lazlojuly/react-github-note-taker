@@ -3,8 +3,13 @@ var Router = require('react-router')
 var Repos = require('./Github/Repos')
 var UserProfile = require('./Github/UserProfile')
 var Notes = require('./Notes/Notes')
+var ReactFireMixin = require('reactfire')
+var Firebase = require('firebase')
+var firebaseConfig = require('../config/firebase')
+Firebase.initializeApp(firebaseConfig);
 
 var Profile = React.createClass({
+	mixins: [ReactFireMixin],
 	getInitialState: function() {
 		return {
 			notes: [1,2,3],
@@ -14,6 +19,13 @@ var Profile = React.createClass({
 			repos: ['a','b','c'],
 		}
 	},
+	componentDidMount: function() {
+		this.ref = Firebase.database().ref('usernames')
+		this.bindAsArray(this.ref.child(this.props.params.username), 'notes');
+	},
+	componentWillUnmount: function() {
+		this.unbind('notes')
+	},
 	render: function() {
 		return (
 			<div className="row">
@@ -21,10 +33,10 @@ var Profile = React.createClass({
 					<UserProfile username={this.props.params.username} bio={this.state.bio} />
 				</div>
 				<div className="col-md-4">
-					<Repos repos={this.state.repos} />
+					<Repos username={this.props.params.username} repos={this.state.repos} />
 				</div>
 				<div className="col-md-4">
-					<Notes notes={this.state.notes} />
+					<Notes username={this.props.params.username} notes={this.state.notes} />
 				</div>
 			</div>
 		)
