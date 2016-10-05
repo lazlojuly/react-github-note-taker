@@ -7,6 +7,7 @@ var ReactFireMixin = require('reactfire')
 var Firebase = require('firebase')
 var firebaseConfig = require('../config/firebase')
 var helpers = require('../utils/helpers')
+import getGithubInfo from '../utils/helpers'
 Firebase.initializeApp(firebaseConfig);
 
 var Profile = React.createClass({
@@ -32,7 +33,7 @@ var Profile = React.createClass({
 	init: function(username) {
 		this.bindAsArray(this.ref.child(username), 'notes');
 
-		helpers.getGithubInfo(username)
+		getGithubInfo(username)
 			.then(function(data) {
 				this.setState({
 					bio: data.bio,
