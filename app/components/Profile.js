@@ -29,7 +29,7 @@ class Profile extends React.Component {
 		base.removeBinding(this.firebase)
 	}
 	init(username) {
-		this.firebase = base.bindToState(`usernames/${username}`, {
+		this.firebase = base.bindToState(`/usernames/${username}`, {
 			context: this,
 			asArray: true,
 			state: 'notes',
