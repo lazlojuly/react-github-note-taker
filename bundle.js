@@ -27728,19 +27728,23 @@
 				return _react2.default.createElement(
 					'div',
 					{ className: 'input-group' },
-					_react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Add New Note',
-						ref: function ref(_ref) {
-							return _this2.setRef(_ref);
-						} }),
 					_react2.default.createElement(
-						'span',
-						{ className: 'input-group-btn' },
+						'form',
+						{ onSubmit: function onSubmit() {
+								return _this2.handleSubmit();
+							} },
+						_react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Add New Note',
+							ref: function ref(_ref) {
+								return _this2.setRef(_ref);
+							} }),
 						_react2.default.createElement(
-							'button',
-							{ className: 'btn btn-default', type: 'button', onClick: function onClick() {
-									return _this2.handleSubmit();
-								} },
-							'Submit'
+							'span',
+							{ className: 'input-group-btn' },
+							_react2.default.createElement(
+								'button',
+								{ className: 'btn btn-default', type: 'submit' },
+								'Submit'
+							)
 						)
 					)
 				);
